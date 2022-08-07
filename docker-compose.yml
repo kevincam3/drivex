@@ -18,7 +18,9 @@ services:
   maria:
     image: mariadb:10.7
     environment:
-      MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: directus
+      MARIADB_ROOT_PASSWORD: secret
+      MARIADB_DATABASE: directus
     ports:
       - "5102:3306"
+    volumes:
+      - "./mariadb_10.7:/var/lib/mysql"
