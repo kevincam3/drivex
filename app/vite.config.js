@@ -16,9 +16,9 @@ import path from 'path';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItContainer from 'markdown-it-container';
 import markdownItTableOfContents from 'markdown-it-table-of-contents';
-import { searchForWorkspaceRoot } from 'vite';
+import {searchForWorkspaceRoot} from 'vite';
 import md from 'vite-plugin-vue-markdown';
-import { defineConfig } from 'vitest/config';
+import {defineConfig} from 'vitest/config';
 import hljsGraphQL from './src/utils/hljs-graphql';
 
 hljs.registerLanguage('graphql', hljsGraphQL);
@@ -36,7 +36,7 @@ export default defineConfig({
 				highlight(str, lang) {
 					if (lang && hljs.getLanguage(lang)) {
 						try {
-							return hljs.highlight(str, { language: lang }).value;
+							return hljs.highlight(str, {language: lang}).value;
 						} catch (err) {
 							// eslint-disable-next-line no-console
 							console.warn('There was an error highlighting in Markdown');
@@ -49,9 +49,9 @@ export default defineConfig({
 				},
 			},
 			markdownItSetup(md) {
-				md.use(markdownItTableOfContents, { includeLevel: [2] });
+				md.use(markdownItTableOfContents, {includeLevel: [2]});
 				md.use(markdownItAnchor, {
-					permalink: markdownItAnchor.permalink.linkInsideHeader({ placement: 'before' }),
+					permalink: markdownItAnchor.permalink.linkInsideHeader({placement: 'before'}),
 				});
 
 				function hintRenderer(type) {
@@ -69,9 +69,9 @@ export default defineConfig({
 					};
 				}
 
-				md.use(markdownItContainer, 'tip', { render: hintRenderer('tip') });
-				md.use(markdownItContainer, 'warning', { render: hintRenderer('warning') });
-				md.use(markdownItContainer, 'danger', { render: hintRenderer('danger') });
+				md.use(markdownItContainer, 'tip', {render: hintRenderer('tip')});
+				md.use(markdownItContainer, 'warning', {render: hintRenderer('warning')});
+				md.use(markdownItContainer, 'danger', {render: hintRenderer('danger')});
 
 				md.core.ruler.push('router-link', (state) => {
 					state.tokens.forEach((token) => {
@@ -133,13 +133,13 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: [
-			{ find: '@', replacement: path.resolve(__dirname, 'src') },
-			{ find: 'json2csv', replacement: 'json2csv/dist/json2csv.umd.js' },
+			{find: '@', replacement: path.resolve(__dirname, 'src')},
+			{find: 'json2csv', replacement: 'json2csv/dist/json2csv.umd.js'},
 		],
 	},
 	base: process.env.NODE_ENV === 'production' ? '' : '/admin/',
 	server: {
-		port: 8080,
+		port: 8082,
 		proxy: {
 			'^/(?!admin)': {
 				target: process.env.API_URL ? process.env.API_URL : 'http://localhost:8055/',
@@ -194,7 +194,7 @@ function directusExtensions() {
 					rollupOptions: {
 						input: {
 							index: path.resolve(__dirname, 'index.html'),
-							...APP_SHARED_DEPS.reduce((acc, dep) => ({ ...acc, [dep.replace(/\//g, '_')]: dep }), {}),
+							...APP_SHARED_DEPS.reduce((acc, dep) => ({...acc, [dep.replace(/\//g, '_')]: dep}), {}),
 						},
 						output: {
 							entryFileNames: 'assets/[name].[hash].entry.js',
